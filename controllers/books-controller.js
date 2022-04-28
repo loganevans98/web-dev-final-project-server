@@ -1,5 +1,4 @@
 import booksDao from "../database/books/books-dao.js";
-import usersDao from "../database/users/users-dao.js";
 
 const likeBook = async (req, res) => {
     let book = req.body
