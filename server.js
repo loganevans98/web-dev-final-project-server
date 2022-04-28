@@ -3,6 +3,9 @@ import express from "express";
 import session from "express-session";
 import cors from "cors";
 import userController from "./controllers/users-controller.js";
+import bookController from "./controllers/books-controller.js";
+import commentController from "./controllers/comments-controller.js"
+import listController from "./controllers/lists-controller.js";
 
 const app = express();
 
@@ -28,5 +31,8 @@ if (app.get('env') === 'production') {
 app.use(session(sess))
 
 userController(app);
+bookController(app);
+commentController(app);
+listController(app);
 
 app.listen(4000);
