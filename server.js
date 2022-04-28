@@ -3,6 +3,7 @@ import express from "express";
 import session from "express-session";
 import cors from "cors";
 import userController from "./controllers/users-controller.js";
+import bookController from "./controllers/books-controller.js";
 
 const app = express();
 
@@ -28,5 +29,6 @@ if (app.get('env') === 'production') {
 app.use(session(sess))
 
 userController(app);
+bookController(app);
 
 app.listen(4000);
