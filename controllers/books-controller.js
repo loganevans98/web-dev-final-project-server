@@ -6,6 +6,13 @@ const likeBook = async (req, res) => {
     res.json(book)
 }
 
+const dislikeBook = async (req, res) => {
+    let book = req.body
+    book = await booksDao.dislikeBook(book)
+    res.json(book)
+}
+
+
 const deleteBookById = async (req, res) => {
     const id = req.params.id
     const status = await booksDao.deleteBookById(id)
@@ -31,6 +38,7 @@ const createBook = async (req, res) => {
 
 const bookController = (app) => {
     app.post('/api/likes', likeBook)
+    app.post('/api/dislikes', dislikeBook)
     app.get('/api/books/:bookID', findBookByBookID)
     app.post('/api/books', createBook)
     app.get('/api/books', findAllBooks)
