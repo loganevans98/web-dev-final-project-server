@@ -23,11 +23,10 @@ const likeBook = async (book) => {
         await booksModel.updateOne({bookID: book.bookID}, {
             $set: {likes: existingBook.likes + 1}
         })
-        existingBook.likes++
     } else {
         // insert a book in the collection called books
         try {
-            existingBook = await booksModel.create({
+            existingBook = await createBook({
                 ...book,
                 likes: 1,
                 dislikes: 0

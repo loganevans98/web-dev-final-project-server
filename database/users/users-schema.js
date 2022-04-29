@@ -4,7 +4,6 @@ const usersSchema = mongoose.Schema({
     password: {type: String, required: true},
     firstName: String,
     lastName: String,
-    admin: {type: Boolean, default: false}
 }, {collection: "users"})
 
 export default usersSchema;
