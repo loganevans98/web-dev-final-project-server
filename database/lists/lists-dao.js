@@ -13,10 +13,14 @@ const findAllBooksSavedByUser = (userId) => {
     return listsModel.find({listedBy: userId})
 }
 
+const findMostRecentSavesByUser = (userId) => {
+    return listsModel.find({listedBy: userId}).sort({_id:-1}).limit(3);
+}
+
 const findUserSavedBook = async (userId, bookID) => {
     return listsModel.findOne({bookID: bookID, listedBy: userId})
 }
 export default {
     userSaveBook, userUnsaveBook, findAllBooksSavedByUser,
-    findUserSavedBook
+    findUserSavedBook, findMostRecentSavesByUser
 }

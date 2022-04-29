@@ -40,10 +40,21 @@ const findAllBooksSavedByUser = async(req, res)=>{
     }
 }
 
+const findMostRecentSavesByUser = async(req, res) => {
+    try {
+        const userId = req.params.userId
+        const list = await listsDao.findMostRecentSavesByUser(userId);
+        res.json(list)
+    } catch (err) {
+        res.status(500).send(err);
+    }
+}
+
 const listController = (app) => {
     app.post("/api/users/:userId/lists/:bookID", userSaveBook)
     app.delete("/api/users/:userId/lists/:bookID", userUnsaveBook)
     app.get("/api/users/:userId/lists", findAllBooksSavedByUser)
+    app.get("/api/users/:userId/lists/recent", findMostRecentSavesByUser)
     app.put("/api/users/:userId/lists/:bookID", userTogglesSave)
 }
 

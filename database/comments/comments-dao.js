@@ -22,10 +22,14 @@ const findAllComments = () => {
     return commentsModel.find()
 }
 
+const findAllMostRecentComments = () => {
+    return commentsModel.find().sort({_id:-1}).limit(10);
+}
+
 const deleteCommentById = (id) =>
     commentsModel.deleteOne({_id: id})
 
 export default {
     postComment, findCommentsByBookID, findCommentsByUserId, findAllComments, deleteCommentById,
-    deleteComment
+    deleteComment, findAllMostRecentComments
 }
