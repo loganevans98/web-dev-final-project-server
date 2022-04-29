@@ -23,14 +23,36 @@ const likeBook = async (book) => {
         await booksModel.updateOne({bookID: book.bookID}, {
             $set: {likes: existingBook.likes + 1}
         })
+    } else {
+        // insert a book in the collection called books
+        try {
+            existingBook = await createBook({
+                ...book,
+                likes: 1,
+                dislikes: 0
+            })
+        } catch(e) {
+            alert(e)
+        }
+    }
+    return existingBook
+}
+
+const dislikeBook = async (book) => {
+    let existingBook = await booksModel.findOne({bookID: book.bookID})
+    if(existingBook) {
+        // update the number of likes in book data
+        await booksModel.updateOne({bookID: book.bookID}, {
+            $set: {dislikes: existingBook.dislikes + 1}
+        })
         existingBook.likes++
     } else {
         // insert a book in the collection called books
         try {
-            existingBook = await booksModel.create({
+            existingBook = await createBook({
                 ...book,
-                likes: 1,
-                dislikes: 0
+                likes: 0,
+                dislikes: 1
             })
         } catch(e) {
             alert(e)
@@ -45,5 +67,5 @@ const findBookByBookID = async (bookID) => {
 }
 
 export default {
-    createBook, deleteBook, likeBook, findBookByBookID, findAllBooks, deleteBookById
+    createBook, deleteBook, likeBook, dislikeBook, findBookByBookID, findAllBooks, deleteBookById
 };
