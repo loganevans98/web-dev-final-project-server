@@ -38,11 +38,17 @@ const deleteComment = async(req,res)=>{
   res.json(status)
 }
 
+const findAllMostRecentComments = async(req, res) => {
+  const comments = await commentsDao.findAllMostRecentComments();
+  res.json(comments);
+}
+
 const commentController = (app) => {
   app.post('/api/books/:bookID/comments/:userId', postComment)
   app.get('/api/books/:bookID/comments', findCommentsByBookID)
   app.get('/api/users/:userId/comments', findCommentsByUserId)
   app.get('/api/comments', findAllComments)
+  app.get('/api/comments/recent', findAllMostRecentComments)
   app.delete('/api/comments/:id', deleteCommentById)
   app.delete('/api/books/:bookID/comments/:userId', deleteComment)
 }
