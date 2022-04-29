@@ -36,7 +36,8 @@ const createBook = async (req, res) => {
 }
 
 const bookController = (app) => {
-    app.post('/api/:userID/likes', likeBook)
+
+    app.post('/api/likes', likeBook)
     app.post('/api/dislikes', dislikeBook)
     app.get('/api/books/:bookID', findBookByBookID)
     app.post('/api/books', createBook)
