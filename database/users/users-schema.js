@@ -4,6 +4,12 @@ const usersSchema = mongoose.Schema({
     password: {type: String, required: true},
     firstName: String,
     lastName: String,
+    accountType: {
+        type: String,
+        enum: ['Admin', 'regular', 'special'],
+        default: 'regular'
+    }
+
 }, {collection: "users"})
 
 export default usersSchema;
