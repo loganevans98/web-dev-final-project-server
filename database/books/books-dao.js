@@ -16,6 +16,26 @@ const findAllBooks = () => {
     return booksModel.find()
 }
 
+const findBookExistsByBookID = (bookID) => {
+    return booksModel.findOne({bookID: bookID})
+}
+
+const updateLikesByPlus = (book, bookID) => {
+    return booksModel.updateOne({bookID: bookID}, {$set:{likes: book.likes + 1}})
+}
+
+const updateLikesByMinus = (book, bookID) => {
+    return booksModel.updateOne({bookID: bookID}, {$set:{likes: book.likes -1}})
+}
+
+const updateDislikesByPlus = (book, bookID) => {
+    return booksModel.updateOne({bookID: bookID}, {$set: {dislikes: book.dislikes + 1}})
+}
+
+const updateDislikesByMinus = (book, bookID) => {
+    return booksModel.updateOne({bookID: bookID}, {$set: {dislikes: book.dislikes - 1}})
+}
+
 const likeBook = async (book) => {
     let existingBook = await booksModel.findOne({bookID: book.bookID})
     if(existingBook) {
@@ -62,11 +82,12 @@ const dislikeBook = async (book) => {
 }
 
 const findBookByBookID = async (bookID) => {
-    const book = await booksModel.findOne({bookID})
+    const book = await booksModel.findOne({bookID: bookID})
     return book
 }
 
 export default {
     createBook, deleteBook, likeBook, findBookByBookID, findAllBooks, deleteBookById,
-    dislikeBook
+    dislikeBook, findBookExistsByBookID, updateLikesByPlus, updateLikesByMinus, updateDislikesByPlus,
+    updateDislikesByMinus
 };

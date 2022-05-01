@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-const likesSchema = mongoose.Schema({
-    likedBy: {
+const dislikesSchema = mongoose.Schema({
+    dislikedBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'UsersModel'},
     bookID: String
-}, {collection: "likes"})
-export default likesSchema;
+}, {collection: "dislikes"})
+export default dislikesSchema;

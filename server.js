@@ -6,6 +6,8 @@ import userController from "./controllers/users-controller.js";
 import bookController from "./controllers/books-controller.js";
 import commentController from "./controllers/comments-controller.js"
 import listController from "./controllers/lists-controller.js";
+import likesController from "./controllers/likes-controller.js";
+import dislikesController from "./controllers/dislikes-controller.js";
 
 const app = express();
 
@@ -34,5 +36,7 @@ userController(app);
 bookController(app);
 commentController(app);
 listController(app);
+likesController(app);
+dislikesController(app);
 
 app.listen(4000);

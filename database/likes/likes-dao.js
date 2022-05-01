@@ -1,22 +1,31 @@
 import likesModel from "./likes-model.js";
 
-const userLikesBook = async (uid, bid) => {
-    return likesModel.create({likedBy: uid, book: bid})
+const userLikesBook = async (userId, bookID) => {
+    const bookLiked = await likesModel.create({likedBy: userId, bookID: bookID})
+    return bookLiked
 }
 
-const userUnlikesBook = async (uid, bid) => {
-    return likesModel.deleteOne({likedBy: uid, book: bid})
+const userUnlikesBook = async (userId, bookID) => {
+    return likesModel.deleteOne({likedBy: userId, bookID: bookID})
 }
 
-const findAllBooksLikedByUser = (uid) => {
-    return likesModel.find({likedBy: uid})
+const findAllBooksLikedByUser = (userId) => {
+    return likesModel.find({likedBy: userId})
 }
 
+const findAllUsersLikedBook = (bookID) => {
+    return likesModel.find({bookID: bookID})
+}
 
-const findUserLikedBook = async (uid, bid) => {
-    return likesModel.findOne({listedBy: uid, book: bid})
+const findMostRecentLikesByUser = (userId) => {
+    return likesModel.find({likedBy: userId}).sort({_id:-1}).limit(3);
+}
+
+const findUserLikedBook = async (userId, bookID) => {
+    return likesModel.findOne({bookID: bookID, likedBy: userId})
 }
 
 export default {
-    userLikesBook, userUnlikesBook, findAllBooksLikedByUser, findUserLikedBook
+    userLikesBook, userUnlikesBook, findAllBooksLikedByUser,
+    findUserLikedBook, findMostRecentLikesByUser, findAllUsersLikedBook
 }
