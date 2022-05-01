@@ -4,14 +4,14 @@ import booksDao from "../database/books/books-dao.js";
 const userDislikesBook = async (req, res) => {
     const userId = req.params.userId
     const bookID = req.params.bookID
-    const bookDisliked = dislikesDao.userDislikesBook(userId, bookID);
+    const bookDisliked = await dislikesDao.userDislikesBook(userId, bookID);
     res.json(bookDisliked)
 }
 
 const userUndislikesBook = async (req, res) => {
     const userId = req.params.userId
     const bookID = req.params.bookID
-    const status = dislikesDao.userUndislikesBook(userId, bookID);
+    const status = await dislikesDao.userUndislikesBook(userId, bookID);
     res.json(status)
 }
 
