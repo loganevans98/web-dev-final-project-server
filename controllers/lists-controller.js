@@ -18,8 +18,8 @@ const userTogglesSave = async (req, res) => {
     const bookID = req.params.bookID
     const userId = req.params.userId
     try{
-        const userAlreadySavedTuit = await listsDao.findUserSavedBook(userId, bookID);
-        if (userAlreadySavedTuit) {
+        const userAlreadySavedBook = await listsDao.findUserSavedBook(userId, bookID);
+        if (userAlreadySavedBook) {
             await listsDao.userUnsaveBook(userId, bookID)
         } else {
             await listsDao.userSaveBook(userId, bookID)
@@ -50,12 +50,20 @@ const findMostRecentSavesByUser = async(req, res) => {
     }
 }
 
+const checkIfUserSavedBook = async (req, res) => {
+    const userId = req.params.userId
+    const bookID = req.params.bookID
+    const bookSaved = await listsDao.findUserSavedBook(userId, bookID);
+    res.json(bookSaved)
+}
+
 const listController = (app) => {
     app.post("/api/users/:userId/lists/:bookID", userSaveBook)
     app.delete("/api/users/:userId/lists/:bookID", userUnsaveBook)
     app.get("/api/users/:userId/lists", findAllBooksSavedByUser)
     app.get("/api/users/:userId/lists/recent", findMostRecentSavesByUser)
     app.put("/api/users/:userId/lists/:bookID", userTogglesSave)
+    app.get("/api/users/:userId/lists/:bookID", checkIfUserSavedBook)
 }
 
 export default listController;
