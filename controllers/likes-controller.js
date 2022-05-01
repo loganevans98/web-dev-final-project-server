@@ -22,7 +22,7 @@ const userTogglesLike = async (req, res) => {
 
     try{
         let existingBook = await booksDao.findBookExistsByBookID(bookID)
-        console.log('existingBook==>>', existingBook);
+        console.log('existingBook:', existingBook);
         if (existingBook) {
             const userAlreadyLikedBook = await likesDao.findUserLikedBook(userId, bookID);
 
