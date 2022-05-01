@@ -42,6 +42,7 @@ const updateUser = async (req, res) => {
         userId,
         updatedUser
     )
+    req.session['currentUser'] = updatedUser
     res.json(status)
 }
 
